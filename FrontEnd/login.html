@@ -28,12 +28,14 @@
     <main>
       <section id="login">
         <h2>Log In</h2>
-        <form action="http://localhost:5678/api/users/login" method="post">
+        <form action="#" method="get">
           <label for="email">Email</label>
           <input type="email" name="email" id="email" />
           <label for="password">Mot de passe</label>
           <input type="password" name="password" id="password" />
-          <input type="submit" id="submit" value="Se connecter" />
+          <div class="form-button">
+            <input type="submit" id="submit" value="Se connecter" />
+          </div>
         </form>
         <p><a href="#">Mot de passe oublié</a></p>
       </section>
@@ -46,5 +48,5 @@
       </nav>
     </footer>
   </body>
-  <script src="./script.js"></script>
+  <script src="./login.js"></script>
 </html>

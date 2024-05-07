@@ -397,3 +397,59 @@ footer nav ul {
 #login p a {
 	color: black;
 }
+
+.form-button {
+	display: flex;
+}
+
+.topBar {
+	background-color: black;
+	height: 60px;
+	width: 100%;
+}
+
+
+.modeEdit {
+	color: #FFFFFF;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+	gap: 10px;
+
+}
+
+.modeEdit p {
+	color: white;
+}
+
+/**/
+
+.projet_edit {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	border: 2px solid greenyellow;
+}
+
+.projet_edit_div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid palevioletred;
+}
+
+.button_edit {
+	background-color: white;
+	border: none;
+	cursor: pointer;
+}
+
+.button_edit i {
+	color: black;
+}
+
+.projet_edit_h2 {
+	margin-bottom: 0;
+}
