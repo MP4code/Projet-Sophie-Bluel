@@ -51,6 +51,25 @@ const closeModal = () => {
   modal.innerHTML = "";
 };
 
+const deleteWork = async (id) => {
+  console.log(id);
+
+  const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+
+  if (response.ok) {
+    console.log("projet supp");
+    await getWorks();
+    generateFirstModalContent();
+  } else {
+    console.log(response);
+  }
+};
+
 const generateFirstModalContent = () => {
   const modalContent = document.querySelector(".modal-content");
   modalContent.innerHTML = "";
@@ -82,6 +101,7 @@ const generateFirstModalContent = () => {
     trashImg.append(img);
     const trash = document.createElement("div");
     trash.className = "trash";
+    trash.addEventListener("click", () => deleteWork(worksList[i].id));
     const iconTrash = document.createElement("i");
     iconTrash.className = "fa-solid fa-trash-can";
     trash.appendChild(iconTrash);
@@ -89,18 +109,67 @@ const generateFirstModalContent = () => {
     trashImg.append(trash);
   }
 
-  const button = document.createElement("button");
-  button.innerHTML = "Ajouter une photo";
-  button.addEventListener("click", generateSecondeModalContent);
+  const buttonAdd1 = document.createElement("button");
+  buttonAdd1.innerHTML = "Ajouter une photo";
+  buttonAdd1.className = "buttonAdd1";
+  buttonAdd1.addEventListener("click", generateSecondeModalContent);
   modalContent.appendChild(title);
   modalContent.appendChild(galleryModalContainer);
   modalContent.appendChild(galleryModal);
   modalContent.appendChild(line);
-  modalContent.appendChild(button);
+  modalContent.appendChild(buttonAdd1);
   modalContent.appendChild(closeButton);
   galleryModalContainer.append(galleryModal);
 };
+
 /*modal 2*/
+const addWork = async () => {
+  const titleProjet = document.querySelector("#titleProjet").value;
+  console.log(titleProjet);
+  const selectProjet = document.querySelector("#catergorieProjet").value;
+  console.log(selectProjet);
+  const buttonAdd = document.querySelector("#buttonAddImg").files[0];
+  console.log(buttonAdd);
+
+  /**Image**/
+
+  const modal = document.querySelector(".modal-content");
+  const backgroundImg = document.querySelector(".backgroundImg");
+  const testImg = () => {
+    console.log("change un truc ");
+    const imgPrevious = document.createElement("img");
+    imgPrevious.className = "imgPrevious";
+    imgPrevious.src = window.URL.createObjectURL(buttonAdd.files[0]);
+    modal.append(imgPrevious);
+    backgroundImg.appendChild(imgPrevious);
+  };
+
+  buttonAdd.addEventListener("change", testImg);
+
+  if (!buttonAdd || !titleProjet) {
+    return alert("Veuillez enter tous les champs du formulaire.");
+  }
+  const formData = new FormData();
+  formData.append("image", buttonAdd);
+  formData.append("title", titleProjet);
+  formData.append("category", selectProjet);
+
+  const response = await fetch(`http://localhost:5678/api/works/`, {
+    method: "POST",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+    body: formData,
+  });
+
+  if (response.ok) {
+    console.log("projet add");
+    await getWorks();
+    generateSecondeModalContent();
+  } else {
+    console.log(response);
+  }
+};
 
 const generateSecondeModalContent = () => {
   const modalContent = document.querySelector(".modal-content");
@@ -126,6 +195,29 @@ const generateSecondeModalContent = () => {
   const addProjet = document.createElement("form");
   addProjet.action = "#";
   addProjet.method = "GET";
+
+  const backgroundImg = document.createElement("div");
+  backgroundImg.className = "backgroundImg";
+  const iconContainer = document.createElement("div");
+  iconContainer.className = "iconContainer";
+  const iconPicture = document.createElement("i");
+  iconPicture.className = "fa-regular fa-image fa-2xl size";
+  iconContainer.appendChild(iconPicture);
+  const buttonAdd = document.createElement("input");
+  buttonAdd.type = "file";
+  buttonAdd.id = "buttonAddImg";
+  buttonAdd.accept = ".jpg , .png";
+  const buttonAddImg = document.createElement("label");
+  buttonAddImg.setAttribute("for", "buttonAddImg");
+  buttonAddImg.className = "buttonAdd-label";
+  buttonAddImg.innerHTML = "+ Ajouter photo";
+  const info = document.createElement("p");
+  info.innerText = "jpg, png : 4mo max";
+  backgroundImg.appendChild(iconContainer);
+  backgroundImg.appendChild(buttonAddImg);
+  backgroundImg.appendChild(buttonAdd);
+
+  backgroundImg.appendChild(info);
   const labelForm = document.createElement("label");
   labelForm.setAttribute("for", "titleProjet");
   labelForm.innerText = "Titre";
@@ -138,57 +230,49 @@ const generateSecondeModalContent = () => {
   labelCategorieProjet.setAttribute("for", "catergorieProjet");
   const selectProjet = document.createElement("select");
   selectProjet.id = "catergorieProjet";
-  const optionObjets = document.createElement("option");
-  optionObjets.value = "objets";
-  optionObjets.innerText = "Objets";
+  for (let i = 0; i < categories.length; i++) {
+    const option = document.createElement("option");
+    option.value = categories[i].id;
+    option.innerText = categories[i].name;
+    selectProjet.append(option);
+  }
 
-  const optionAppartements = document.createElement("option");
-  optionAppartements.value = "appartements";
-  optionAppartements.innerText = "Appartements";
-
-  const optionHotelsRestaurants = document.createElement("option");
-  optionHotelsRestaurants.value = "HotelsRestaurants";
-  optionHotelsRestaurants.innerText = "Hotels & restaurants";
-
-  addProjet.append(labelForm);
+  addProjet.appendChild(backgroundImg);
+  addProjet.appendChild(labelForm);
   addProjet.appendChild(titleProjet);
   addProjet.appendChild(labelCategorieProjet);
   addProjet.appendChild(selectProjet);
-  selectProjet.append(optionObjets);
-  selectProjet.appendChild(optionAppartements);
-  selectProjet.appendChild(optionHotelsRestaurants);
-  const backgroundImg = document.createElement("div");
-  backgroundImg.className = "backgroundImg";
-  const iconContainer = document.createElement("div");
-  iconContainer.className = "iconContainer";
-  const iconPicture = document.createElement("i");
-  iconPicture.className = "fa-regular fa-image fa-2xl size";
-  iconContainer.appendChild(iconPicture);
-  const buttonAdd = document.createElement("input");
-  buttonAdd.type = "file";
-  buttonAdd.id = "buttonAddImg";
-  const buttonAddImg = document.createElement("label");
-  buttonAddImg.setAttribute("for", "buttonAddImg");
-  buttonAddImg.innerHTML = "+ Ajouter photo";
-  const info = document.createElement("p");
-  info.innerText = "jpg, png : 4mo max";
+
+  /**/
 
   const line = document.createElement("div");
   line.className = "line";
-  const button = document.createElement("button");
-  button.innerHTML = "Valider";
+  const buttonValidate = document.createElement("button");
+  buttonValidate.innerHTML = "Valider";
+  buttonValidate.className = "buttonValidate";
   backButton.addEventListener("click", generateFirstModalContent);
-  modalContent.appendChild(iconDirection);
 
+  modalContent.appendChild(iconDirection);
   modalContent.appendChild(title);
-  modalContent.appendChild(backgroundImg);
-  backgroundImg.appendChild(iconContainer);
-  backgroundImg.appendChild(buttonAddImg);
-  backgroundImg.appendChild(buttonAdd);
-  backgroundImg.appendChild(info);
   modalContent.appendChild(addProjet);
   modalContent.appendChild(line);
-  modalContent.appendChild(button);
+  modalContent.appendChild(buttonValidate);
+
+  /**Alerte**/
+
+  const alertInfo = () => {
+    if (!titleProjet.value | !selectProjet.value) {
+      console.log("Veuillez ajouter un titre ainsi que sa catégorie.");
+    } else {
+      buttonValidate.className = "buttonValidate_ok";
+    }
+  };
+  buttonAdd.onchange = alertInfo;
+  titleProjet.onchange = (e) => {
+    console.log(titleProjet.value);
+  };
+
+  buttonValidate.addEventListener("click", addWork);
 };
 
 const generateEditButton = () => {
@@ -216,8 +300,8 @@ if (token) {
 
 /**/
 
-const getWorks = () => {
-  fetch("http://localhost:5678/api/works", {
+const getWorks = async () => {
+  await fetch("http://localhost:5678/api/works", {
     method: "GET",
   })
     .then((res) => res.json())

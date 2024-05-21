@@ -37,13 +37,3 @@ const loginUser = async (e) => {
 };
 
 submit.addEventListener("click", loginUser);
-
-/*Regex*/
-/*
-let regex = emailInput == null;
-function testRegex() {
-  if (emailInput.match(regex)) {
-    console.log("Tiens, ça fonction ?");
-  } else console.log("...");
-}
-*/

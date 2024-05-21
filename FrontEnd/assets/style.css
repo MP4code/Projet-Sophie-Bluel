@@ -455,74 +455,7 @@ footer nav ul {
 	color: black;
 }
 
-/*Modal*/
-/* 
 
-.modal_wrapper h3 {
-	font-family: Work Sans;
-	font-size: 26px;
-	font-weight: 400;
-	line-height: 30.5px;
-	text-align: center;
-}
-
-.modal {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.3);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.modal_wrapper {
-	width: 630px;
-	height: 600px;
-	border-radius: 10px;
-	opacity: 0px;
-	background-color: #FFFFFF;
-	overflow: auto;
-	padding: 20px;
-	margin-right: 600px;
-}
-
-.modal_wrapper .fa-solid {
-	cursor: pointer;
-	display: flex;
-	flex-direction: row-reverse;
-	margin: 10px;
-	margin-bottom: 30px;
-}
-
-.modal_wrapper-back {
-	display: flex;
-	justify-content: space-between;
-}
-
-.modal_wrapper_content {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	width: 100%;
-}
-*/
-/** Modal 2 */
-/*
-.modal_wrapper_content form {
-	display: flex;
-	flex-direction: column;
-	gap: 1em;
-	padding: 20px
-}
-
-.modal_link-add2 {
-	align-self: center;
-}
-*/
 /*** Modal ***/
 .line {
 	border: 1px solid #B3B3B3;
@@ -553,7 +486,7 @@ footer nav ul {
 .modal-content {
 	position: relative;
 	width: 630px;
-	height: 688px;
+	min-height: 688px;
 	border-radius: 10px;
 	background-color: #FFFFFF;
 	padding: 20px;
@@ -578,7 +511,7 @@ footer nav ul {
 	margin: 40px;
 }
 
-button {
+.buttonAdd1 {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
@@ -591,6 +524,31 @@ button {
 	border: none;
 }
 
+.buttonValidate {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #A7A7A7;
+	margin: 2em auto;
+	width: 237px;
+	padding: 10px;
+	text-align: center;
+	border-radius: 60px;
+	border: none;
+}
+
+.buttonValidate_ok {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin: 2em auto;
+	width: 237px;
+	padding: 10px;
+	text-align: center;
+	border-radius: 60px;
+	border: none;
+}
 
 .trashImg {
 	display: flex;
@@ -668,7 +626,7 @@ button {
 	visibility: hidden;
 }
 
-#buttonAddImg label {
+.buttonAdd-label {
 	width: 173px;
 	height: 36px;
 	border-radius: 50px;
@@ -712,4 +670,11 @@ button {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	background-color: white;
 	margin-bottom: 40px;
+}
+
+/**/
+.imgPrevious {
+	display: block;
+	width: 200px;
+
 }
