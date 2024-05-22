@@ -18,7 +18,7 @@ const generateLogoutButton = () => {
 };
 
 const generateTopBar = () => {
-  const body = document.querySelector("body");
+  const html = document.querySelector("html");
   const topBar = document.createElement("div");
   const modeEdit = document.createElement("div");
   const iconEdit = document.createElement("i");
@@ -34,7 +34,7 @@ const generateTopBar = () => {
 
   topBar.className = "topBar";
   modeEdit.className = "modeEdit";
-  body.insertBefore(topBar, body.firstChild);
+  html.insertBefore(topBar, html.firstChild);
 };
 /*modal*/
 const openModal = () => {
@@ -125,26 +125,10 @@ const generateFirstModalContent = () => {
 /*modal 2*/
 const addWork = async () => {
   const titleProjet = document.querySelector("#titleProjet").value;
-  console.log(titleProjet);
+
   const selectProjet = document.querySelector("#catergorieProjet").value;
-  console.log(selectProjet);
+
   const buttonAdd = document.querySelector("#buttonAddImg").files[0];
-  console.log(buttonAdd);
-
-  /**Image**/
-
-  const modal = document.querySelector(".modal-content");
-  const backgroundImg = document.querySelector(".backgroundImg");
-  const testImg = () => {
-    console.log("change un truc ");
-    const imgPrevious = document.createElement("img");
-    imgPrevious.className = "imgPrevious";
-    imgPrevious.src = window.URL.createObjectURL(buttonAdd.files[0]);
-    modal.append(imgPrevious);
-    backgroundImg.appendChild(imgPrevious);
-  };
-
-  buttonAdd.addEventListener("change", testImg);
 
   if (!buttonAdd || !titleProjet) {
     return alert("Veuillez enter tous les champs du formulaire.");
@@ -258,21 +242,34 @@ const generateSecondeModalContent = () => {
   modalContent.appendChild(line);
   modalContent.appendChild(buttonValidate);
 
-  /**Alerte**/
+  const testImg = () => {
+    const dataImg = buttonAdd.files[0];
+    const buttonAddImg = document.querySelector(".buttonAdd-label");
+    const iconContainer = document.querySelector(".iconContainer");
+    const info = document.querySelector(".backgroundImg p");
 
-  const alertInfo = () => {
-    if (!titleProjet.value | !selectProjet.value) {
-      console.log("Veuillez ajouter un titre ainsi que sa catégorie.");
-    } else {
-      buttonValidate.className = "buttonValidate_ok";
-    }
-  };
-  buttonAdd.onchange = alertInfo;
-  titleProjet.onchange = (e) => {
-    console.log(titleProjet.value);
+    buttonAddImg.className = "delete";
+    iconContainer.className = "delete";
+    info.className = "delete";
+    const imgPrevious = document.createElement("img");
+    imgPrevious.className = "imgPrevious";
+    imgPrevious.src = window.URL.createObjectURL(dataImg);
+    modal.append(imgPrevious);
+    backgroundImg.appendChild(imgPrevious);
+    const iconClose = document.createElement("i");
+    iconClose.className = "fa-solid fa-xmark test";
+    backgroundImg.appendChild(iconClose);
+    const backImgPrevious = () => {
+      imgPrevious.className = "delete";
+      buttonAddImg.className = "buttonAdd-label";
+      iconContainer.className = "iconContainer";
+      info.classList.remove("delete");
+      iconClose.className = "delete";
+    };
+    iconClose.addEventListener("click", backImgPrevious);
   };
 
-  buttonValidate.addEventListener("click", addWork);
+  buttonAdd.addEventListener("change", testImg);
 };
 
 const generateEditButton = () => {
