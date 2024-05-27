@@ -37,3 +37,7 @@ const loginUser = async (e) => {
 };
 
 submit.addEventListener("click", loginUser);
+
+const footer = document.querySelector("footer");
+const html = document.querySelector("html");
+html.appendChild(footer);

@@ -4,6 +4,10 @@ let categories = [];
 
 const modal = document.querySelector(".modal");
 
+const footer = document.querySelector("footer");
+const html = document.querySelector("html");
+html.appendChild(footer);
+
 const generateLogoutButton = () => {
   let authButton = document.querySelector(".authButton");
   const logoutUser = () => {
@@ -257,7 +261,7 @@ const generateSecondeModalContent = () => {
     modal.append(imgPrevious);
     backgroundImg.appendChild(imgPrevious);
     const iconClose = document.createElement("i");
-    iconClose.className = "fa-solid fa-xmark test";
+    iconClose.className = "fa-solid fa-xmark close";
     backgroundImg.appendChild(iconClose);
     const backImgPrevious = () => {
       imgPrevious.className = "delete";
@@ -270,6 +274,8 @@ const generateSecondeModalContent = () => {
   };
 
   buttonAdd.addEventListener("change", testImg);
+
+  buttonValidate.addEventListener("click", addWork);
 };
 
 const generateEditButton = () => {
