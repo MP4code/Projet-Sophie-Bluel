@@ -107,7 +107,7 @@ const generateFirstModalContent = () => {
     trash.className = "trash";
     trash.addEventListener("click", () => deleteWork(worksList[i].id));
     const iconTrash = document.createElement("i");
-    iconTrash.className = "fa-solid fa-trash-can";
+    iconTrash.className = "fa-solid fa-trash-can trashButton";
     trash.appendChild(iconTrash);
     galleryModal.append(trash);
     trashImg.append(trash);
@@ -129,9 +129,7 @@ const generateFirstModalContent = () => {
 /*modal 2*/
 const addWork = async () => {
   const titleProjet = document.querySelector("#titleProjet").value;
-
   const selectProjet = document.querySelector("#catergorieProjet").value;
-
   const buttonAdd = document.querySelector("#buttonAddImg").files[0];
 
   if (!buttonAdd || !titleProjet) {
@@ -195,20 +193,28 @@ const generateSecondeModalContent = () => {
   buttonAdd.type = "file";
   buttonAdd.id = "buttonAddImg";
   buttonAdd.accept = ".jpg , .png";
-  const buttonAddImg = document.createElement("label");
-  buttonAddImg.setAttribute("for", "buttonAddImg");
-  buttonAddImg.className = "buttonAdd-label";
-  buttonAddImg.innerHTML = "+ Ajouter photo";
+  const buttonAddImgLabel = document.createElement("label");
+  buttonAddImgLabel.className = "buttonAddImgLabel";
+  buttonAddImgLabel.setAttribute("for", "buttonAddImg");
+  const buttonAddImg = document.createElement("div");
+  buttonAddImg.className = "buttonAddImgContent";
+  buttonAddImg.appendChild(iconContainer);
+  const buttontext = document.createElement("span");
+  buttontext.className = "buttonAdd-label";
+  buttontext.innerHTML = "+ Ajouter photo";
+  buttonAddImg.appendChild(buttontext);
   const info = document.createElement("p");
   info.innerText = "jpg, png : 4mo max";
-  backgroundImg.appendChild(iconContainer);
-  backgroundImg.appendChild(buttonAddImg);
+
+  buttonAddImgLabel.appendChild(buttonAddImg);
+  backgroundImg.appendChild(buttonAddImgLabel);
   backgroundImg.appendChild(buttonAdd);
 
-  backgroundImg.appendChild(info);
+  buttonAddImg.appendChild(info);
   const labelForm = document.createElement("label");
   labelForm.setAttribute("for", "titleProjet");
   labelForm.innerText = "Titre";
+
   const titleProjet = document.createElement("input");
   titleProjet.type = "text";
   titleProjet.id = "titleProjet";
@@ -248,33 +254,30 @@ const generateSecondeModalContent = () => {
 
   const testImg = () => {
     const dataImg = buttonAdd.files[0];
-    const buttonAddImg = document.querySelector(".buttonAdd-label");
-    const iconContainer = document.querySelector(".iconContainer");
-    const info = document.querySelector(".backgroundImg p");
+    const buttonAddImg = document.querySelector(".buttonAddImgLabel");
+    const buttonAddImgContent = document.querySelector(".buttonAddImgContent");
 
-    buttonAddImg.className = "delete";
-    iconContainer.className = "delete";
-    info.className = "delete";
+    buttonAddImgContent.style.display = "none";
     const imgPrevious = document.createElement("img");
     imgPrevious.className = "imgPrevious";
     imgPrevious.src = window.URL.createObjectURL(dataImg);
-    modal.append(imgPrevious);
-    backgroundImg.appendChild(imgPrevious);
-    const iconClose = document.createElement("i");
-    iconClose.className = "fa-solid fa-xmark close";
-    backgroundImg.appendChild(iconClose);
-    const backImgPrevious = () => {
-      imgPrevious.className = "delete";
-      buttonAddImg.className = "buttonAdd-label";
-      iconContainer.className = "iconContainer";
-      info.classList.remove("delete");
-      iconClose.className = "delete";
-    };
-    iconClose.addEventListener("click", backImgPrevious);
+    buttonAddImg.appendChild(imgPrevious);
+
+    if (dataImg && titleProjet.value) {
+      buttonValidate.className = "buttonValidate_ok";
+    }
+  };
+
+  const testTitle = () => {
+    const dataImg = buttonAdd.files[0];
+
+    if (dataImg && titleProjet.value) {
+      buttonValidate.className = "buttonValidate_ok";
+    }
   };
 
   buttonAdd.addEventListener("change", testImg);
-
+  titleProjet.addEventListener("change", testTitle);
   buttonValidate.addEventListener("click", addWork);
 };
 
@@ -345,7 +348,18 @@ const displayWorks = (categoryId) => {
   }
 };
 
-const getCategories = () => {
+const getCategories = async () => {
+  const response = await fetch("http://localhost:5678/api/categories", {
+    method: "GET",
+  });
+  if (response.ok) {
+    categories = await response.json();
+
+    if (!token) {
+      displayCategories();
+    }
+  }
+  /*
   fetch("http://localhost:5678/api/categories", {
     method: "GET",
   })
@@ -357,6 +371,7 @@ const getCategories = () => {
         displayCategories();
       }
     });
+    */
 };
 const displayCategories = () => {
   let filter = document.querySelector(".filter");

@@ -208,8 +208,12 @@ nav li a:active {
 	font-weight: bold;
 }
 
+.authButton,
+.trashButton {
+	cursor: pointer;
+}
 
-li:hover {
+nav li a:hover {
 	color: #B1663C;
 }
 
@@ -527,8 +531,6 @@ footer nav ul {
 	display: flex;
 	flex-wrap: wrap;
 	width: 100%;
-	justify-content: space-between;
-
 	margin-bottom: 30px;
 }
 
@@ -573,10 +575,10 @@ footer nav ul {
 
 .trashImg {
 	display: flex;
-	justify-content: space-between;
-	width: 16%;
+	width: calc(20% - 10px);
 	position: relative;
 	margin: 0 10px 20px 0;
+	box-sizing: border-box;
 }
 
 .trashImg img {
@@ -643,7 +645,7 @@ footer nav ul {
 }
 
 #buttonAddImg {
-	visibility: hidden;
+	display: none;
 }
 
 .buttonAdd-label {
@@ -661,6 +663,7 @@ footer nav ul {
 	justify-content: center;
 	align-items: center;
 }
+
 
 
 /*Formulaire ajout projet*/
@@ -707,4 +710,22 @@ footer nav ul {
 .close {
 	position: absolute;
 	cursor: pointer;
+}
+
+.buttonAddImgContent {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	height: 100%;
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.buttonAddImgLabel {
+	display: flex;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
 }
