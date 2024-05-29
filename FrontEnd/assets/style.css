@@ -330,7 +330,7 @@ footer nav ul {
 	padding: 1em 100px;
 }
 
-/*filtres*/
+/*** filtres ***/
 .filter {
 	display: flex;
 	justify-content: center;
@@ -376,7 +376,7 @@ footer nav ul {
 	cursor: pointer
 }
 
-/*Page de Login*/
+/***Page de Login***/
 /*Formulaire*/
 
 #login {
@@ -418,6 +418,8 @@ footer nav ul {
 .form-button {
 	display: flex;
 }
+
+/*** Fin Page de Login***/
 
 .topBar {
 	background-color: black;
@@ -473,7 +475,7 @@ footer nav ul {
 }
 
 
-/*** Modal ***/
+/*** Première Modal ***/
 .line {
 	border: 1px solid #B3B3B3;
 	width: 420px;
@@ -547,31 +549,6 @@ footer nav ul {
 	border: none;
 }
 
-.buttonValidate {
-	font-family: 'Syne';
-	font-weight: 700;
-	color: white;
-	background-color: #A7A7A7;
-	margin: 2em auto;
-	width: 237px;
-	padding: 10px;
-	text-align: center;
-	border-radius: 60px;
-	border: none;
-}
-
-.buttonValidate_ok {
-	font-family: 'Syne';
-	font-weight: 700;
-	color: white;
-	background-color: #1D6154;
-	margin: 2em auto;
-	width: 237px;
-	padding: 10px;
-	text-align: center;
-	border-radius: 60px;
-	border: none;
-}
 
 .trashImg {
 	display: flex;
@@ -601,7 +578,7 @@ footer nav ul {
 	color: #FFFFFF;
 }
 
-/** Modal 2 **/
+/*** Seconde Modal ***/
 .iconDirection {
 	width: 100%;
 	display: flex;
@@ -664,9 +641,60 @@ footer nav ul {
 	align-items: center;
 }
 
+.buttonAddImgContent {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	height: 100%;
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.buttonAddImgLabel {
+	display: flex;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+}
 
 
-/*Formulaire ajout projet*/
+.buttonValidate {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #A7A7A7;
+	margin: 2em auto;
+	width: 237px;
+	padding: 10px;
+	text-align: center;
+	border-radius: 60px;
+	border: none;
+}
+
+.buttonValidate_ok {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin: 2em auto;
+	width: 237px;
+	padding: 10px;
+	text-align: center;
+	border-radius: 60px;
+	border: none;
+}
+
+/*Prévisualisation de l'image du projet*/
+.imgPrevious {
+	position: absolute;
+	object-fit: contain;
+	width: 140px;
+	height: 169px;
+}
+
+/*** Formulaire ajout projet ***/
 .modal-content form {
 	text-align: left;
 	align-items: flex-start;
@@ -693,39 +721,4 @@ footer nav ul {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	background-color: white;
 	margin-bottom: 40px;
-}
-
-/**/
-.imgPrevious {
-	position: absolute;
-	object-fit: contain;
-	width: 140px;
-	height: 169px;
-}
-
-.delete {
-	display: none;
-}
-
-.close {
-	position: absolute;
-	cursor: pointer;
-}
-
-.buttonAddImgContent {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-between;
-	height: 100%;
-	width: 100%;
-	padding: 10px;
-	box-sizing: border-box;
-}
-
-.buttonAddImgLabel {
-	display: flex;
-	justify-content: center;
-	height: 100%;
-	width: 100%;
 }

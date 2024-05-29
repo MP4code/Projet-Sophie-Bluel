@@ -2,7 +2,7 @@ const token = localStorage.getItem("token");
 if (token) {
   window.location.href = "./index.html";
 }
-/*Alert Login*/
+/*** Alert Login ***/
 
 let emailInput = document.querySelector("#email");
 let passwordInput = document.querySelector("#password");
@@ -38,6 +38,7 @@ const loginUser = async (e) => {
 
 submit.addEventListener("click", loginUser);
 
+/*** Style ***/
 const footer = document.querySelector("footer");
 const html = document.querySelector("html");
 html.appendChild(footer);

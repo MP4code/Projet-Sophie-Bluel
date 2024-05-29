@@ -4,10 +4,7 @@ let categories = [];
 
 const modal = document.querySelector(".modal");
 
-const footer = document.querySelector("footer");
-const html = document.querySelector("html");
-html.appendChild(footer);
-
+/*** Déconnexion ***/
 const generateLogoutButton = () => {
   let authButton = document.querySelector(".authButton");
   const logoutUser = () => {
@@ -20,6 +17,11 @@ const generateLogoutButton = () => {
   logoutButton.addEventListener("click", logoutUser);
   authButton.appendChild(logoutButton);
 };
+
+/*** Style ***/
+const footer = document.querySelector("footer");
+const html = document.querySelector("html");
+html.appendChild(footer);
 
 const generateTopBar = () => {
   const html = document.querySelector("html");
@@ -40,7 +42,8 @@ const generateTopBar = () => {
   modeEdit.className = "modeEdit";
   html.insertBefore(topBar, html.firstChild);
 };
-/*modal*/
+
+/*** Modal ***/
 const openModal = () => {
   const modalContainer = document.createElement("div");
   modalContainer.className = "modal-container";
@@ -73,6 +76,8 @@ const deleteWork = async (id) => {
     console.log(response);
   }
 };
+
+/*** Première Modal ***/
 
 const generateFirstModalContent = () => {
   const modalContent = document.querySelector(".modal-content");
@@ -126,7 +131,8 @@ const generateFirstModalContent = () => {
   galleryModalContainer.append(galleryModal);
 };
 
-/*modal 2*/
+/*** Ajouter un projet ***/
+
 const addWork = async () => {
   const titleProjet = document.querySelector("#titleProjet").value;
   const selectProjet = document.querySelector("#catergorieProjet").value;
@@ -156,6 +162,8 @@ const addWork = async () => {
     console.log(response);
   }
 };
+
+/*** Seconde Modal ***/
 
 const generateSecondeModalContent = () => {
   const modalContent = document.querySelector(".modal-content");
@@ -252,6 +260,8 @@ const generateSecondeModalContent = () => {
   modalContent.appendChild(line);
   modalContent.appendChild(buttonValidate);
 
+  /*** Prévisualisation de l'image du projet ***/
+
   const testImg = () => {
     const dataImg = buttonAdd.files[0];
     const buttonAddImg = document.querySelector(".buttonAddImgLabel");
@@ -281,6 +291,8 @@ const generateSecondeModalContent = () => {
   buttonValidate.addEventListener("click", addWork);
 };
 
+/*** Le bouton modifier ***/
+
 const generateEditButton = () => {
   const projet_edit = document.querySelector(".projet_edit");
   const projet_edit_div = document.createElement("div");
@@ -298,13 +310,19 @@ const generateEditButton = () => {
   lienModal.addEventListener("click", openModal);
 };
 
+/*** Si le token est présent les fonctions se lancent
+ * La fonction pour se déconnecter
+ * La fonction pour la barre du haut apparaît
+ * La fonction pour le bouton modifier
+ * ***/
+
 if (token) {
   generateLogoutButton();
   generateTopBar();
   generateEditButton();
 }
 
-/**/
+/*** Afficher les projets ***/
 
 const getWorks = async () => {
   await fetch("http://localhost:5678/api/works", {
@@ -348,6 +366,8 @@ const displayWorks = (categoryId) => {
   }
 };
 
+/*** Trier en focntion des catégories ***/
+
 const getCategories = async () => {
   const response = await fetch("http://localhost:5678/api/categories", {
     method: "GET",
@@ -359,19 +379,6 @@ const getCategories = async () => {
       displayCategories();
     }
   }
-  /*
-  fetch("http://localhost:5678/api/categories", {
-    method: "GET",
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      categories = data;
-
-      if (!token) {
-        displayCategories();
-      }
-    });
-    */
 };
 const displayCategories = () => {
   let filter = document.querySelector(".filter");
